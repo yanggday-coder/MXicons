@@ -1,6 +1,6 @@
 # 🎨 DC Icons - Figma 动态图标库插件
 
-存放 Web,APP 端 Icon 的 Figma 插件库
+存放MX Web,APP 端 Icon 的 Figma 插件库
 
 ## 功能特性
 
