@@ -1,0 +1,15 @@
+{
+  "name": "DC Icons 动态图标库",
+  "id": "1644328524749315546",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.github.com",
+      "https://raw.githubusercontent.com"
+    ]
+  },
+  "documentAccess": "dynamic-page"
+}
