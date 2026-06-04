@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "icons": [
+    {
+      "name": "hover",
+      "id": "hover",
+      "category": "Mouse"
+    },
+    {
+      "name": "禁用",
+      "id": "jingyong",
+      "category": "Mouse"
+    }
+  ]
+}
