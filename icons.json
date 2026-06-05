@@ -1,1 +1,15 @@
-["hover", "LOGO \u6587\u5b57", "LOGO", "\u6a59", "\u9644\u4ef6", "\u7981\u7528", "\u84dd", "\u62cd\u7167", "\u6dfb\u52a0", "\u6dfb\u52a0\u7f6e\u7070", "\u62d6\u62fd", "\u6587\u4ef6", "\u76f8\u518c"]
+{
+  "version": "1.0.0",
+  "icons": [
+    {
+      "name": "数据锁定",
+      "id": "database-lock",
+      "category": "数据"
+    },
+    {
+      "name": "折线图",
+      "id": "chart-line",
+      "category": "图表"
+    }
+  ]
+}
