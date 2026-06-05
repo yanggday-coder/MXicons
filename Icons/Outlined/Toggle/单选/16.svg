@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon / Outlined / Toggle / 单选 / 16</title>
+    <defs>
+        <path d="M7.75935025,1.00405902 L8,1 L8.24064975,1.00405902 C11.9952166,1.13090132 15,4.21454828 15,8 C15,11.8659932 11.8659932,15 8,15 L7.75935025,14.995941 C4.00478338,14.8690987 1,11.7854517 1,8 C1,4.13400675 4.13400675,1 8,1 Z" id="path-1"></path>
+    </defs>
+    <g id="Icon-/-Outlined-/-Toggle-/-单选-/-16" stroke="none" fill="none" xlink:href="#path-1">
+        <circle id="椭圆形" fill-opacity="0" fill="#000000" fill-rule="evenodd" cx="8" cy="8" r="7"></circle>
+        <circle id="椭圆形" stroke="#1A1A1A" stroke-width="1" cx="8" cy="8" r="6.5"></circle>
+    </g>
+</svg>

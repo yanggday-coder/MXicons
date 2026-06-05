@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon / Filled / Toggle / 单选 / 24</title>
+    <defs>
+        <path d="M12.2842951,1.50377424 C17.951858,1.65442656 22.5,6.29607553 22.5,12 C22.5,17.7989899 17.7989899,22.5 12,22.5 L11.7157049,22.4962258 C6.04814202,22.3455734 1.5,17.7039245 1.5,12 C1.5,6.20101013 6.20101013,1.5 12,1.5 Z" id="path-1"></path>
+    </defs>
+    <g id="Icon-/-Filled-/-Toggle-/-单选-/-24" stroke="none" fill="none" xlink:href="#path-1">
+        <circle id="椭圆形" fill="#1A1A1A" fill-rule="evenodd" cx="12" cy="12" r="10.5"></circle>
+        <circle id="椭圆形" stroke="#1A1A1A" stroke-width="1.5" cx="12" cy="12" r="9.75"></circle>
+        <polyline id="路径-7" stroke="#FFFFFF" stroke-width="1.875" stroke-linecap="round" stroke-linejoin="round" points="7.05882353 12.3523394 10.6769617 15.5294118 16.9411765 9.88235294"></polyline>
+    </g>
+</svg>

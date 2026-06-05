@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Icon / Filled / Toggle / 部分选中 / 20</title>
+    <defs>
+        <path d="M16.25,1.25 C17.6307119,1.25 18.75,2.36928813 18.75,3.75 L18.75,16.25 C18.75,17.6307119 17.6307119,18.75 16.25,18.75 L3.75,18.75 C2.36928813,18.75 1.25,17.6307119 1.25,16.25 L1.25,3.75 C1.25,2.36928813 2.36928813,1.25 3.75,1.25 L16.25,1.25 Z" id="path-1"></path>
+    </defs>
+    <g id="Icon-/-Filled-/-Toggle-/-部分选中-/-20" stroke="none" fill="none" xlink:href="#path-1" fill-rule="evenodd">
+        <rect id="矩形-2" fill="#1A1A1A" x="1.25" y="1.25" width="17.5" height="17.5" rx="2.5"></rect>
+        <rect id="矩形" fill="#FFFFFF" x="5" y="9.375" width="10" height="1.25" rx="0.625"></rect>
+    </g>
+</svg>
