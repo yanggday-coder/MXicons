@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 12px; margin: 0; background: #fff; color: #333; font-size: 12px; }
+    .search-container { position: sticky; top: 0; background: #fff; padding-bottom: 12px; z-index: 10; }
+    .search-box { width: 100%; padding: 8px 12px; box-sizing: border-box; border: 1px solid #e3e3e3; border-radius: 6px; font-size: 12px; outline: none; }
+    .search-box:focus { border-color: #1890ff; box-shadow: 0 0 0 2px rgba(24,144,255,0.2); }
+    .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .icon-item { border: 1px solid #f0f0f0; padding: 8px 4px; border-radius: 6px; cursor: pointer; text-align: center; transition: all 0.2s; background: #fafafa; }
+    .icon-item:hover { background: #f0f7ff; border-color: #91d5ff; transform: translateY(-1px); }
+    .icon-item img { width: 28px; height: 28px; object-fit: contain; }
+    .icon-name { font-size: 10px; color: #8c8c8c; margin-top: 6px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding: 0 2px; }
+    .status { text-align: center; color: #999; margin-top: 40px; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+  <div class="search-container">
+    <input type="text" id="search" class="search-box" placeholder="搜索图标文件名..." oninput="filterIcons()">
+  </div>
+  
+  <div id="status" class="status">正在从 GitHub 仓库加载图标...</div>
+  <div class="icon-grid" id="iconGrid"></div>
+
+  <script>
+    const GITHUB_API = "https://api.github.com/repos/yanggday-coder/dc_icons/contents/Mouse";
+    const RAW_BASE_URL = "https://raw.githubusercontent.com/yanggday-coder/dc_icons/main/Mouse/";
+    
+    let allIcons = []; 
+
+    // 从 GitHub API 动态读取 Mouse 文件夹下的所有文件
+    async function fetchIconsFromGitHub() {
+      try {
+        const response = await fetch(GITHUB_API);
+        if (!response.ok) throw new Error('网络请求失败');
+        const files = await response.json();
+        
+        // 过滤出所有的 .svg 文件
+        allIcons = files
+          .filter(file => file.name.toLowerCase().endsWith('.svg'))
+          .map(file => {
+            return {
+              name: file.name.replace('.svg', ''), // 去掉后缀作为显示名字
+              url: RAW_BASE_URL + file.name       // 生成 raw 图片直链
+            };
+          });
+
+        if(allIcons.length === 0) {
+          document.getElementById('status').innerText = 'Mouse 文件夹下没有找到 .svg 图标';
+        } else {
+          document.getElementById('status').style.display = 'none'; // 隐藏加载状态
+          renderIcons(allIcons);
+        }
+      } catch (error) {
+        document.getElementById('status').innerText = '加载失败，请检查网络或仓库权限';
+        console.error(error);
+      }
+    }
+
+    // 渲染图标列表
+    function renderIcons(icons) {
+      const grid = document.getElementById('iconGrid');
+      grid.innerHTML = '';
+      
+      icons.forEach(icon => {
+        const item = document.createElement('div');
+        item.className = 'icon-item';
+        item.title = icon.name;
+        item.innerHTML = `
+          <img src="${icon.url}" />
+          <div class="icon-name">${icon.name}</div>
+        `;
+        // 点击图标时，获取源码并插入画布
+        item.onclick = () => insertIconToFigma(icon.url, icon.name);
+        grid.appendChild(item);
+      });
+    }
+
+    // 实时搜索过滤
+    function filterIcons() {
+      const keyword = document.getElementById('search').value.toLowerCase();
+      const filtered = allIcons.filter(icon => icon.name.toLowerCase().includes(keyword));
+      renderIcons(filtered);
+    }
+
+    // 核心：请求 SVG 纯文本代码并发送给 Figma
+    async function insertIconToFigma(url, name) {
+      try {
+        const res = await fetch(url);
+        const svgText = await res.text();
+        // 向 code.js 发送消息
+        parent.postMessage({ pluginMessage: { type: 'INSERT_ICON', svg: svgText, name: name } }, '*');
+      } catch (err) {
+        alert('无法读取该图标的矢量数据');
+      }
+    }
+
+    // 启动加载
+    fetchIconsFromGitHub();
+  </script>
+</body>
+</html>
