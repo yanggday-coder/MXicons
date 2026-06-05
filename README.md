@@ -1,6 +1,6 @@
 # 🎨 MX Icons - Figma
 
-妙想Web,APP端Icon的Figma插件库
+妙想Web,APP Icon的Figma插件库
 
 ## 功能特性
 
@@ -113,4 +113,4 @@ MIT
 
 ## 作者
 
-yanggday-coder
+@yanggang-coder
