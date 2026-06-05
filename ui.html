@@ -4,9 +4,18 @@
   <meta charset="utf-8">
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 12px; margin: 0; background: #fff; color: #333; font-size: 12px; }
-    .search-container { position: sticky; top: 0; background: #fff; padding-bottom: 12px; z-index: 10; }
+    
+    /* 固定的头部控制区 */
+    .header-controls { position: sticky; top: 0; background: #fff; padding-bottom: 12px; z-index: 10; display: flex; flex-direction: column; gap: 8px; }
     .search-box { width: 100%; padding: 8px 12px; box-sizing: border-box; border: 1px solid #e3e3e3; border-radius: 6px; font-size: 12px; outline: none; }
-    .search-box:focus { border-color: #1890ff; box-shadow: 0 0 0 2px rgba(24,144,255,0.2); }
+    .search-box:focus { border-color: #1890ff; }
+    
+    /* 尺寸切换按钮组样式 */
+    .size-selector { display: flex; background: #f5f5f5; padding: 2px; border-radius: 6px; }
+    .size-btn { flex: 1; border: none; background: transparent; padding: 6px 0; font-size: 11px; color: #666; cursor: pointer; border-radius: 4px; font-weight: 500; transition: all 0.1s; }
+    .size-btn.active { background: #fff; color: #1890ff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    
+    /* 图标网格 */
     .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
     .icon-item { border: 1px solid #f0f0f0; padding: 8px 4px; border-radius: 6px; cursor: pointer; text-align: center; transition: all 0.2s; background: #fafafa; }
     .icon-item:hover { background: #f0f7ff; border-color: #91d5ff; transform: translateY(-1px); }
@@ -17,53 +26,64 @@
 </head>
 <body>
 
-  <div class="search-container">
+  <div class="header-controls">
     <input type="text" id="search" class="search-box" placeholder="搜索图标文件名..." oninput="filterIcons()">
+    
+    <div class="size-selector">
+      <button class="size-btn active" onclick="changeSize(16, this)">16 px</button>
+      <button class="size-btn" onclick="changeSize(24, this)">24 px</button>
+      <button class="size-btn" onclick="changeSize(32, this)">32 px</button>
+    </div>
   </div>
   
-  <div id="status" class="status">正在从 GitHub 仓库加载图标...</div>
+  <div id="status" class="status">正在从 0.0 抓取最新图标...</div>
   <div class="icon-grid" id="iconGrid"></div>
 
   <script>
+    // 自动适配你新调整的 MXicons 仓库结构
     const GITHUB_API = "https://api.github.com/repos/yanggday-coder/MXicons/contents/Icons";
     const RAW_BASE_URL = "https://raw.githubusercontent.com/yanggday-coder/MXicons/main/Icons/";
     
     let allIcons = []; 
+    let currentSize = 16; // 🌟 默认尺寸设置为 16
 
-    // 从 GitHub API 动态读取 Mouse 文件夹下的所有文件
+    // 切换尺寸的函数
+    function changeSize(size, buttonElement) {
+      currentSize = size;
+      // 切换按钮的激活状态视觉效果
+      document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+      buttonElement.classList.add('active');
+    }
+
+    // 从 GitHub 获取图标
     async function fetchIconsFromGitHub() {
       try {
         const response = await fetch(GITHUB_API);
         if (!response.ok) throw new Error('网络请求失败');
         const files = await response.json();
         
-        // 过滤出所有的 .svg 文件
         allIcons = files
           .filter(file => file.name.toLowerCase().endsWith('.svg'))
-          .map(file => {
-            return {
-              name: file.name.replace('.svg', ''), // 去掉后缀作为显示名字
-              url: RAW_BASE_URL + file.name       // 生成 raw 图片直链
-            };
-          });
+          .map(file => ({
+            name: file.name.replace('.svg', ''),
+            url: RAW_BASE_URL + file.name
+          }));
 
         if(allIcons.length === 0) {
-          document.getElementById('status').innerText = 'Mouse 文件夹下没有找到 .svg 图标';
+          document.getElementById('status').innerText = 'Mouse 文件夹下未检测到 SVG';
         } else {
-          document.getElementById('status').style.display = 'none'; // 隐藏加载状态
+          document.getElementById('status').style.display = 'none';
           renderIcons(allIcons);
         }
       } catch (error) {
-        document.getElementById('status').innerText = '加载失败，请检查网络或仓库权限';
+        document.getElementById('status').innerText = '加载失败，请重试或检查配置';
         console.error(error);
       }
     }
 
-    // 渲染图标列表
     function renderIcons(icons) {
       const grid = document.getElementById('iconGrid');
       grid.innerHTML = '';
-      
       icons.forEach(icon => {
         const item = document.createElement('div');
         item.className = 'icon-item';
@@ -72,32 +92,36 @@
           <img src="${icon.url}" />
           <div class="icon-name">${icon.name}</div>
         `;
-        // 点击图标时，获取源码并插入画布
+        // 🌟 点击时，把当前选中的尺寸（currentSize）一起传给后台
         item.onclick = () => insertIconToFigma(icon.url, icon.name);
         grid.appendChild(item);
       });
     }
 
-    // 实时搜索过滤
     function filterIcons() {
       const keyword = document.getElementById('search').value.toLowerCase();
       const filtered = allIcons.filter(icon => icon.name.toLowerCase().includes(keyword));
       renderIcons(filtered);
     }
 
-    // 核心：请求 SVG 纯文本代码并发送给 Figma
     async function insertIconToFigma(url, name) {
       try {
         const res = await fetch(url);
         const svgText = await res.text();
-        // 向 code.js 发送消息
-        parent.postMessage({ pluginMessage: { type: 'INSERT_ICON', svg: svgText, name: name } }, '*');
+        // 🌟 将当前尺寸发送给 code.js
+        parent.postMessage({ 
+          pluginMessage: { 
+            type: 'INSERT_ICON', 
+            svg: svgText, 
+            name: name,
+            size: currentSize 
+          } 
+        }, '*');
       } catch (err) {
-        alert('无法读取该图标的矢量数据');
+        alert('矢量数据读取失败');
       }
     }
 
-    // 启动加载
     fetchIconsFromGitHub();
   </script>
 </body>
