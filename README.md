@@ -12,11 +12,11 @@
 ## 文件结构
 
 ```
-dc_icons/
+MXicons/
 ├── manifest.json          # Figma 插件配置文件
 ├── code.js               # 插件主逻辑（后端）
 ├── ui.html               # 插件界面（前端）
-├── dc icons.json         # 图标库数据
+├── icons.json            # 图标库数据
 ├── package.json          # 项目配置
 └── README.md             # 本文件
 ```
