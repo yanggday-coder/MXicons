@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Mouse/禁用</title>
+    <defs>
+        <path d="M8,1 C11.8659932,1 15,4.13400675 15,8 C15,11.8659932 11.8659932,15 8,15 C4.13400675,15 1,11.8659932 1,8 C1,4.13400675 4.13400675,1 8,1 Z M2,8 C2,11.3137085 4.6862915,14 8,14 C10.0416357,14 11.845103,12.9802798 12.9288737,11.4223675 L2.57091043,5.44227322 C2.20474448,6.21814618 2,7.08516277 2,8 Z M8,2 C5.95879712,2 4.15566168,3.01928793 3.07181572,4.57664177 L13.4295654,10.5567182 C13.7954329,9.7811025 14,8.91444085 14,8 C14,4.6862915 11.3137085,2 8,2 Z" id="path-1"></path>
+        <filter x="-57.1%" y="-42.9%" width="214.3%" height="214.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.12 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Mouse/禁用" stroke="none" fill="none" transform="translate(4, 2)">
+        <rect id="矩形" x="0" y="0" width="16" height="16"></rect>
+        <g id="形状结合" fill-rule="nonzero">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <path stroke="#FFFFFF" stroke-width="1" d="M15.5,8 C15.5,12.1421356 12.1421356,15.5 8,15.5 C3.85786438,15.5 0.5,12.1421356 0.5,8 C0.5,3.85786438 3.85786438,0.5 8,0.5 C12.1421356,0.5 15.5,3.85786438 15.5,8 Z M2.5,8 C2.5,11.0375661 4.96243388,13.5 8,13.5 C9.63675487,13.5 11.1515775,12.7802453 12.1823701,11.5687275 L2.81606372,6.16115906 C2.60765935,6.74487151 2.5,7.36450486 2.5,8 Z M3.81841903,4.43034441 L13.1843217,9.83777513 C13.3924725,9.25437109 13.5,8.63510634 13.5,8 C13.5,4.96243388 11.0375661,2.5 8,2.5 C6.3636749,2.5 4.84920911,3.21937429 3.81841903,4.43034441 Z" fill="#222222" fill-rule="evenodd"></path>
+        </g>
+    </g>
+</svg>
