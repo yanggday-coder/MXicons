@@ -38,27 +38,32 @@
   
   <div id="status" class="status">正在从 0.0 抓取最新图标...</div>
   <div class="icon-grid" id="iconGrid"></div>
-
+  
   <script>
-    // 自动适配你新调整的 MXicons 仓库结构
+    // 保持你新调整的 MXicons 仓库结构
     const GITHUB_API = "https://api.github.com/repos/yanggday-coder/MXicons/contents/Icons";
     const RAW_BASE_URL = "https://raw.githubusercontent.com/yanggday-coder/MXicons/main/Icons/";
     
     let allIcons = []; 
-    let currentSize = 16; // 🌟 默认尺寸设置为 16
+    let currentSize = 16; // 默认尺寸
 
-    // 切换尺寸的函数
     function changeSize(size, buttonElement) {
       currentSize = size;
-      // 切换按钮的激活状态视觉效果
       document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
       buttonElement.classList.add('active');
     }
 
-    // 从 GitHub 获取图标
+    // 🌟 核心改动：在 fetch 请求里加上了你的身份 Token
     async function fetchIconsFromGitHub() {
       try {
-        const response = await fetch(GITHUB_API);
+        const response = await fetch(GITHUB_API, {
+          method: "GET",
+          headers: {
+            // ⚠️ 记得把下面这一行双引号里的文字，换成你真正的 GitHub Token
+            "Authorization": "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"
+          }
+        });
+
         if (!response.ok) throw new Error('网络请求失败');
         const files = await response.json();
         
@@ -92,7 +97,6 @@
           <img src="${icon.url}" />
           <div class="icon-name">${icon.name}</div>
         `;
-        // 🌟 点击时，把当前选中的尺寸（currentSize）一起传给后台
         item.onclick = () => insertIconToFigma(icon.url, icon.name);
         grid.appendChild(item);
       });
@@ -108,21 +112,17 @@
       try {
         const res = await fetch(url);
         const svgText = await res.text();
-        // 🌟 将当前尺寸发送给 code.js
         parent.postMessage({ 
-          pluginMessage: { 
-            type: 'INSERT_ICON', 
-            svg: svgText, 
-            name: name,
-            size: currentSize 
-          } 
+          pluginMessage: { type: 'INSERT_ICON', svg: svgText, name: name, size: currentSize } 
         }, '*');
       } catch (err) {
         alert('矢量数据读取失败');
       }
     }
 
+    // 启动加载
     fetchIconsFromGitHub();
   </script>
+
 </body>
 </html>
