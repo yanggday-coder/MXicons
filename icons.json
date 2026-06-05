@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "icons": [
+    {
+      "name": "数据锁定",
+      "id": "database-lock",
+      "category": "Icons"
+    },
+    {
+      "name": "折线图",
+      "id": "chart-line",
+      "category": "Icons"
+    }
+  ]
+}
