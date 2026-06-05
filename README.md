@@ -106,7 +106,7 @@ npm run build
 
 ## 更新图标库
 
-只需更新 GitHub 仓库中的 `dc icons.json` 文件，然后在 Figma 插件中点击"刷新图标库"即可加载最新数据。
+只需更新GitHub仓库Icons文件夹内容，Figma插件自动更新最新图标数据。
 
 ## 许可证
 
