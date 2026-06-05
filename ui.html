@@ -36,18 +36,30 @@
   <div class="icon-grid" id="iconGrid"></div>
 
   <script>
+<<<<<<< HEAD
     // ✅ 只用 raw 域名读取图标图片，不再调用 GitHub API
     const RAW_BASE_URL = "https://raw.githubusercontent.com/yanggday-coder/MXicons/main/Icons/";
 
     let allIcons = [];
     let currentSize = 16;
+=======
+    // 自动适配你新调整的 MXicons 仓库结构
+    const GITHUB_API = "https://api.github.com/repos/yanggday-coder/MXicons/contents/Icons";
+    const RAW_BASE_URL = "https://raw.githubusercontent.com/yanggday-coder/MXicons/main/Icons/";
+    
+    let allIcons = []; 
+    let currentSize = 16; // 🌟 默认尺寸设置为 16
+>>>>>>> parent of 3ca3fa5 (Update ui.html)
 
+    // 切换尺寸的函数
     function changeSize(size, buttonElement) {
       currentSize = size;
+      // 切换按钮的激活状态视觉效果
       document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
       buttonElement.classList.add('active');
     }
 
+<<<<<<< HEAD
     // ✅ 从本地 icons.json 读取图标列表，无需 Token，无速率限制
     async function fetchIconsFromGitHub() {
       try {
@@ -59,6 +71,21 @@
           name: name,
           url: RAW_BASE_URL + name + '.svg'
         }));
+=======
+    // 从 GitHub 获取图标
+    async function fetchIconsFromGitHub() {
+      try {
+        const response = await fetch(GITHUB_API);
+        if (!response.ok) throw new Error('网络请求失败');
+        const files = await response.json();
+        
+        allIcons = files
+          .filter(file => file.name.toLowerCase().endsWith('.svg'))
+          .map(file => ({
+            name: file.name.replace('.svg', ''),
+            url: RAW_BASE_URL + file.name
+          }));
+>>>>>>> parent of 3ca3fa5 (Update ui.html)
 
         if (allIcons.length === 0) {
           document.getElementById('status').innerText = 'icons.json 为空，未检测到图标';
@@ -83,6 +110,7 @@
           <img src="${icon.url}" />
           <div class="icon-name">${icon.name}</div>
         `;
+        // 🌟 点击时，把当前选中的尺寸（currentSize）一起传给后台
         item.onclick = () => insertIconToFigma(icon.url, icon.name);
         grid.appendChild(item);
       });
@@ -98,8 +126,19 @@
       try {
         const res = await fetch(url);
         const svgText = await res.text();
+<<<<<<< HEAD
         parent.postMessage({
           pluginMessage: { type: 'INSERT_ICON', svg: svgText, name: name, size: currentSize }
+=======
+        // 🌟 将当前尺寸发送给 code.js
+        parent.postMessage({ 
+          pluginMessage: { 
+            type: 'INSERT_ICON', 
+            svg: svgText, 
+            name: name,
+            size: currentSize 
+          } 
+>>>>>>> parent of 3ca3fa5 (Update ui.html)
         }, '*');
       } catch (err) {
         alert('矢量数据读取失败');
