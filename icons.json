@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "icons": [
     {
-      "name": "数据锁定",
-      "id": "database-lock",
+      "name": "hover",
+      "id": "hover",
       "category": "Icons"
     },
     {
