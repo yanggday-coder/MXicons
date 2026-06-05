@@ -1,6 +1,7 @@
 # 🎨 MX Icons - Figma
 
-妙想Web,APP Icon的Figma插件库
+妙想icon库0.1 Figma
+
 
 ## 功能特性
 
